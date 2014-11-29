@@ -2623,7 +2623,8 @@ width=500px
 <li>任意の点${\bf x}$に対し${\bf x}_{\bot}$を決定面上への直交射影とすると、
 $${\bf x}={\bf x}_\bot + r\frac{{\bf w}}{||{\bf w}||}$$</li>
 <li>両辺に${\bf w}^T$を左から掛け、$w_0$を足すと、
-$${\bf w}^T{\bf x}+w_0={\bf w}^T{\bf x}_\bot + w_0 + r\frac{{\bf w}^T{\bf w}}{||{\bf w}||} \iff y({\bf x})=0+r||{\bf w}||$$</li>
+$${\bf w}^T{\bf x}+w_0={\bf w}^T{\bf x}_\bot + w_0 + r\frac{{\bf w}^T{\bf w}}{||{\bf w}||}$$
+$$\iff y({\bf x})=0+r||{\bf w}||$$</li>
 <li>従って
 $$r=\frac{y({\bf x})}{||{\bf w||}}$$</li>
 </ul>
@@ -4278,6 +4279,463 @@ width=500px
 </div>
 </div>
 
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="-k-">単独のKクラス識別による解決</h3>
+<ul>
+<li><p>K個の線形関数で構成される単独のKクラス識別
+$$y_k({\bf x})={\bf w}_k^T{\bf x}+w_{k0}.$$</p>
+</li>
+<li><p>すべての$j\neq k$に対して$y_k({\bf x})&gt;y_j({\bf x})$である場合点${\bf x}$はクラス${\cal C}_k$に割り当てられる</p>
+<ul>
+<li>クラス${\cal C}_k$とクラス${\cal C}_j$間の決定境界は$y_k({\bf x})=y_j({\bf x})$</li>
+<li>決定境界は以下の式で定義される(D-1)次元の超平面
+$$({\bf w}_k-{\bf w}_j)^T{\bf x}+(w_{k0}-w_{j0})=0.$$<ul>
+<li>4.1.1節の2クラスの場合の決定境界と同様の形をしているため類似の幾何学的特性が適用可能</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="-">識別領域</h3>
+<ul>
+<li>識別器の決定領域は常に1つに連結していて凸領域</li>
+<li>決定領域${\cal R}_k$にある2点${\bf x}_A$と${\bf x}_B$を結ぶ直線上にある任意の点$\hat{{\bf x}}$($0\leq\lambda\leq 1$)
+$$\hat{{\bf x}}=\lambda{\bf x}_A + (1-\lambda){\bf x}_B$$</li>
+<li>識別関数の線形性から以下が成立
+$$y_k(\hat{{\bf x}})=\lambda y_k({\bf x}_A) + (1-\lambda)y_k({\bf x}_B)$$<ul>
+<li>すべての$j\neq k$に対して$y_k({\bf x}_A)&gt;y_j({\bf x}_A)$, $y_k({\bf x}_B)&gt;y_j({\bf x}_B)$が成り立つので$y_k(\hat{{\bf x}})&gt;y_j(\hat{{\bf x}})$</li>
+<li>従って任意の点$\hat{{\bf x}}$も決定領域${\cal R}_k$に属し、決定領域${\cal R}_k$は単一結合しており凸領域</li>
+</ul>
+</li>
+<li>2クラスの識別の場合は$y_1({\bf x})$と$y_2({\bf x})$に基づく定式化でも1つの識別関数$y({\bf x})$に基づく定式化のどちらでも良い</li>
+</ul>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[8]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight"><pre><span class="n">disp_figure</span><span class="p">(</span><span class="s">&quot;4.3&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+width=500px
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="-3-">線形識別関数のパラメータを学習する3つのアプローチ</h3>
+<ul>
+<li>最小二乗</li>
+<li>フィッシャーの線形判別</li>
+<li>パーセプトロンアルゴリズム</li>
+</ul>
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="4-1-3-">4.1.3 分類における最小二乗</h2>
+<ul>
+<li>3章での回帰問題と同じく最小二乗に基づく定式化をKクラスの分類問題にも適用</li>
+<li>目的変数ベクトル${\bf t}$には1-of-K符号化法を用いる</li>
+</ul>
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="-">最小二乗を利用する理由</h3>
+<ul>
+<li>入力ベクトルが与えられた際の目的変数値の条件付き期待値$\mathbb{E}({\bf t}|{\bf x})$を近似するため</li>
+<li>2値表記法では条件付期待値はクラス事後確率のベクトルによって与えられる<ul>
+<li>しかし推定された確率は近似が悪く確率の値が(0,1)の範囲を越えることもある<ul>
+<li>線形モデルの柔軟性が低いことが理由</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="-">線形モデルによる表現</h3>
+<ul>
+<li><p>各クラス${\cal C}_k$は各クラス毎の線形モデルで記述(k=1,...,K)
+$$y_k({\bf x})={\bf w}_k^T{\bf x}+w_{k0}.$$</p>
+</li>
+<li><p>D+1次元ベクトル$\tilde{{\bf w}}_k=(w_{k0},{\bf w}_k^T)^T$をk列目に持つ行列$\tilde{{\bf W}}$, ダミー入力$x_0=1$を加えた入力ベクトル$(1,{\bf x}^T)$を用いると纏めて表記可能
+$${\bf y}({\bf x})=\tilde{{\bf W}}^T\tilde{{\bf x}}$$</p>
+</li>
+<li><p>新たな入力${\bf x}$は$y_k=\tilde{{\bf w}}_k^T\tilde{{\bf x}}$が最大となるクラスに割り当てられる</p>
+</li>
+</ul>
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="-0-">二乗和誤差関数の最小化によるパラメータ行列$\tilde{{\bf W}}$の決定</h3>
+<ul>
+<li>学習データ集合$\{{\bf x}_n, {\bf t}_n\}$     (n=1,...,N)</li>
+<li>n番目の行がベクトル${\bf t}_n^T$である行列${\bf T}$とn番目の行が$\tilde{{\bf x}}_n^T$である行列$\tilde{{\bf X}}$を定義</li>
+<li>二乗和誤差関数は以下で与えられる
+$$ E_D(\tilde{{\bf W}})=\frac{1}{2}{\rm Tr}\left\{ (\tilde{{\bf X}}\tilde{{\bf W}}-{\bf T})^T(\tilde{{\bf X}}\tilde{{\bf W}}-{\bf T}) \right\} $$</li>
+</ul>
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="-0-">$\tilde{{\bf W}}$による微分と識別関数</h3>
+<ul>
+<li><p>(C.27)でB=Iとみなして計算
+$$ \frac{\partial E_D(\tilde{{\bf W}})}{\partial{\bf \tilde{{\bf W}}}}=\frac{1}{2}\left\{ 2(\tilde{{\bf X}}\tilde{{\bf W}}-{\bf T})^T\tilde{{\bf X}} \right\} = 0$$
+$$ \iff (\tilde{{\bf X}}\tilde{{\bf W}}-{\bf T})^T\tilde{{\bf X}} = 0$$
+$$ \iff (\tilde{{\bf X}}\tilde{{\bf W}})^T\tilde{{\bf X}}-{\bf T}^T\tilde{{\bf X}} = 0$$
+$$ \iff (\tilde{{\bf X}}\tilde{{\bf W}})^T\tilde{{\bf X}} = {\bf T}^T\tilde{{\bf X}}$$
+$$ \iff \tilde{{\bf X}}^T(\tilde{{\bf X}}\tilde{{\bf W}}) = \tilde{{\bf X}}^T{\bf T}$$
+$$ \iff \tilde{{\bf W}}=(\tilde{{\bf X}}^T\tilde{{\bf X}})^{-1}\tilde{{\bf X}}^T{\bf T}=\tilde{{\bf X}}^{\dagger}{\bf T}$$</p>
+</li>
+<li><p>$\tilde{{\bf X}}^{\dagger}$は3.1.1節で出てきた擬似逆行列(pseudo-inverse matrixt)</p>
+</li>
+<li>結局、識別関数は
+$${\bf y}({\bf x})=\tilde{{\bf W}}^T\tilde{{\bf x}}={\bf T}^T(\tilde{{\bf X}}^\dagger)^T\tilde{{\bf x}}.$$</li>
+</ul>
+</div>
+</div>
+</div></section>
+    </section><section>
+    <section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="-">最小二乗解の特性</h3>
+<ul>
+<li><p>学習データにおける目的変数ベクトルがある定数${\bf a}$とbに対して線形制約を持っている場合はモデルの予測も同じ線形制約を持つ
+$${\bf a}^T{\bf t}_n+b=0$$
+$${\bf a}^T{\bf y}({\bf x})+b=0$$</p>
+</li>
+<li><p>1-of-K符号化法を使用する場合、モデルによる予測の特性として任意の${\bf x}$に対し${\bf y}({\bf x})$の要素の和が1</p>
+<ul>
+<li>和出力が(0,1)の範囲に入る制約が無いため確率としては解釈出来ない</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
