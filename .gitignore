@@ -1,6 +1,9 @@
 *~
 */.ipynb_checkpoints
 chapter4/figure/*.png
-chapter4/reveal.js/*
+chapter4/reveal.js
 chapter4/*.tpl
+chapter11/*.tpl
+chapter11/figure/*.png
+chapter11/reveal.js
 kaggle/titanic/data
